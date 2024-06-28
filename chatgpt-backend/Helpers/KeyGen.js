@@ -1,0 +1,5 @@
+const crypto=require('crypto')
+const FirstKey=crypto.randomBytes(32).toString('hex')
+const SecondKey=crypto.randomBytes(32).toString('hex')
+console.log(FirstKey)
+console.log(SecondKey)

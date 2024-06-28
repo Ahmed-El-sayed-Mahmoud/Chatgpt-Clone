@@ -1,0 +1,152 @@
+const Joi = require("joi");
+const UserSchema = require("../Schemas/UserSchema");
+const createHttpError = require("http-errors");
+const bcrypt = require("bcrypt");
+const JWTHelper = require("../Helpers/JWTHelper");
+const RedisClient=require("../Helpers/RedisInit")
+//////////////////////////////////////////////////////
+const ExistMiddleWare = async (req, res, next) => {
+  const { email, password } = req.body;
+  try
+  {
+    const user = await UserSchema.findOne({ email });
+    if (user == null) {
+      return next();
+    } else {
+      //return res.status(409).send({error:{message:' An Account with this email already exist'}})
+      return next(
+        createHttpError.Conflict("An Account with this email already exist")
+      );
+    }
+  } catch (e) {
+    return next(e);
+  }
+};
+
+const CheckData = async (req, res, next) => {
+  console.log("checkkkk")
+  const { email, password } = req.body;
+  if (!email | (email == "") || !password || password == "") {
+    return res.status(400).send({ error: { message: "Fill all Fieldas" } });
+  }
+  const ValidationSchema = Joi.object({
+    email: Joi.string().lowercase().required().email(),
+    password: Joi.string()
+      .required()
+      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+      RefreshToken:Joi.optional()
+  });
+
+  const { error, value } =  ValidationSchema.validate(req.body);
+  if (error) {
+    console.log("error checking")
+    console.log(error.message)
+    return next(createHttpError.BadRequest("Invalid Email or Password"));
+  } else {
+    next();
+  }
+};
+
+const VerifyRefreshTOKEN = async (req, res, next) => {
+  const { RefreshToken } = req.body;
+  if(!RefreshToken)
+    return next(createHttpError.BadRequest())
+  let userId;
+  try {
+    userId = await JWTHelper.VerifyJWT(RefreshToken, "Refresh");
+    //console.log("refres")
+    //console.log(userId)
+    const RedisToken=await RedisClient.get(userId)
+    if(RedisToken!=RefreshToken)
+      return next((createHttpError.Unauthorized()))
+    req.userId=userId
+    return next()
+    
+  } catch (err) {
+    return next(createHttpError.Unauthorized());
+  }
+};
+const GenerateNewTokens=async(req,res,next)=>{
+  try{
+    const userId=req.userId
+    console.log(userId)
+    if(!userId)
+    {
+      return next(createHttpError.BadRequest())
+    }
+    const NewAccessToken = await JWTHelper.SignAccessToken(userId);
+    const NewRefreshToken = await JWTHelper.SignRefreshsToken(userId);
+    res.send({ AccessToken: NewAccessToken, RefreshToken: NewRefreshToken });
+  }
+  catch(e)
+  {
+    return next(createHttpError.Unauthorized())
+  }
+  
+}
+const VerifyAccessToken=async (req,res,next)=>{
+  const BearerToken=req.headers.authorization;
+  if(!BearerToken)
+    return next(createHttpError.Unauthorized())
+
+    const token=BearerToken.split(" ")[1];
+    console.log(token)
+    if(!token)
+        return next(createHttpError.Unauthorized())
+      try{
+         await JWTHelper.VerifyJWT(token,'Access')
+         return next()
+      }
+      catch(e)
+      {
+        
+        return next(createHttpError.Unauthorized())
+      }
+
+}
+const Login=async (req,res,next)=>{
+  try{
+      //console.log("logggg")
+      const {email,password}=req.body
+      const user= await UserSchema.findOne({email})
+      if(!user)
+         next(createHttpError.Unauthorized("Wrong Email or Password"))
+      let IsMatch=await bcrypt.compare(password,user.password)
+      if(IsMatch)
+        {
+          req.userId=user._id.toString()
+          return next()
+        }
+        else{
+          next(createHttpError.Unauthorized("Wrong Email or Password"))
+        }
+
+
+  }
+  catch(error)
+  {
+    next(error)
+  }
+};
+const LogOut=async(req,res,next)=>{
+    try{
+        const userId=req.userId
+        RedisClient.del(userId)
+        res.status(204).send()
+
+    }
+    catch(e)
+    {
+
+    }
+}
+module.exports = {
+  ExistMiddleWare,
+  CheckData,
+  VerifyRefreshTOKEN,
+  GenerateNewTokens,
+  VerifyAccessToken,
+  Login,
+  LogOut,
+  
+};
