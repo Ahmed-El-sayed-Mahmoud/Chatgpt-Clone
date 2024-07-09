@@ -58,5 +58,5 @@ Create a `.env` file in the root directory of your project and add the following
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/chemini.git
+   git clone https://github.com/Ahmed-El-sayed-Mahmoud/chemini.git
    cd chemini
