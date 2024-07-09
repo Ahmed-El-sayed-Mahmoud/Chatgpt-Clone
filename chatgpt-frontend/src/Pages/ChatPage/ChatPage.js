@@ -319,12 +319,16 @@ function ChatPage() {
       if(image==="")
       {
         await AiHelper(state.value, shouldUpdateHistory, x, (chunkText) => {
+          if(chunkText===""||!chunkText)
+            chunkText="Error Happened from Model :("
           complete_res += chunkText;
           dispatch({ type: "APPEND_RESPONSE", payload: chunkText });
         });
       }
       else
       {await aiImageRun(state.value,imageInineData,(chunkText) => {
+        if(chunkText===""||!chunkText)
+          chunkText="Error Happened from Model :("
         complete_res += chunkText;
         dispatch({ type: "APPEND_RESPONSE", payload: chunkText });
       })}
