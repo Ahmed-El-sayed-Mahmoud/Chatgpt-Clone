@@ -10,6 +10,7 @@ const ExistMiddleWare = async (req, res, next) => {
   try
   {
    console.log("before database")
+    console.log("connection url : ",process.env.CONNECTION_URL)
     const user = await UserSchema.findOne({ email });
     console.log("after database")
     if (user == null) {
