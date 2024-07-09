@@ -1,6 +1,6 @@
-import { createClient } from 'redis';
+const redis = require ('redis')
 
-const client = createClient({
+const client =redis.createClient({
     password: process.env.REDIS_CLIENT_KEY,
     socket: {
         host: 'redis-11479.c300.eu-central-1-1.ec2.redns.redis-cloud.com',
