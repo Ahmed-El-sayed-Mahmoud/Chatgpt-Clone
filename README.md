@@ -18,6 +18,7 @@ View the live deployment of Chemini: [Chemini ChatGPT Clone](https://chatgpt-clo
 - Real-time chat interface
 - AI-generated responses using Gemini API
 - User authentication with JWT
+- Multi-turn Conversations with Chat History
 - State management with Redux
 - Caching with Redis
 - Responsive design
