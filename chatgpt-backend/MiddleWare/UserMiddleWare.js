@@ -85,15 +85,19 @@ const GenerateNewTokens=async(req,res,next)=>{
       return next(createHttpError.BadRequest())
     }
     const NewAccessToken = await JWTHelper.SignAccessToken(userId);
+    console.log("new access",NewAccessToken)
     const NewRefreshToken = await JWTHelper.SignRefreshsToken(userId);
+    console.log("new refresh",NewAccessToken)
     res.cookie('accesstoken','Bearer '+NewAccessToken,{maxAge:5*60*1000})
     res.cookie('refreshtoken',NewRefreshToken,{maxAge:10*60*1000, httpOnly:true,secure:true , sameSite: 'strict'})
     res.status(200).send({AccessToken:NewAccessToken  });
   }
   catch(e)
   {
+    console.log("error generating new tokens: ",error )
     return next(createHttpError.Unauthorized())
   }
+  
   
 }
 const VerifyAccessToken=async (req,res,next)=>{
