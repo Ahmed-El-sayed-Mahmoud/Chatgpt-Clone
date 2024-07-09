@@ -48,17 +48,23 @@ const CheckData = async (req, res, next) => {
 };
 
 const VerifyRefreshTOKEN = async (req, res, next) => {
-  const { RefreshToken } = req.body;
+  const  RefreshToken  = req.cookies.refreshtoken;
+  console.log("Refresh Token : ",RefreshToken)
   if(!RefreshToken)
-    return next(createHttpError.BadRequest())
+    return next(createHttpError.Unauthorized())
   let userId;
   try {
     userId = await JWTHelper.VerifyJWT(RefreshToken, "Refresh");
     //console.log("refres")
     //console.log(userId)
-    const RedisToken=await RedisClient.get(userId)
+    const RedisToken= await RedisClient.get(userId)
     if(RedisToken!=RefreshToken)
+    {
+      console.log("Redis Token :" ,RedisToken)
+      console.log("not matching with redis")
       return next((createHttpError.Unauthorized()))
+    }
+      
     req.userId=userId
     return next()
     
@@ -67,6 +73,7 @@ const VerifyRefreshTOKEN = async (req, res, next) => {
   }
 };
 const GenerateNewTokens=async(req,res,next)=>{
+  console.log("generating new tokeeeens")
   try{
     const userId=req.userId
     console.log(userId)
@@ -76,7 +83,9 @@ const GenerateNewTokens=async(req,res,next)=>{
     }
     const NewAccessToken = await JWTHelper.SignAccessToken(userId);
     const NewRefreshToken = await JWTHelper.SignRefreshsToken(userId);
-    res.send({ AccessToken: NewAccessToken, RefreshToken: NewRefreshToken });
+    res.cookie('accesstoken','Bearer '+NewAccessToken,{maxAge:5*60*1000})
+    res.cookie('refreshtoken',NewRefreshToken,{maxAge:10*60*1000, httpOnly:true,secure:true , sameSite: 'strict'})
+    res.status(200).send({AccessToken:NewAccessToken  });
   }
   catch(e)
   {
@@ -85,7 +94,9 @@ const GenerateNewTokens=async(req,res,next)=>{
   
 }
 const VerifyAccessToken=async (req,res,next)=>{
-  const BearerToken=req.headers.authorization;
+  //const BearerToken=req.cookies['accesstoken'];
+  const BearerToken=req.cookies.accesstoken;
+  console.log("Acess Token",BearerToken)
   if(!BearerToken)
     return next(createHttpError.Unauthorized())
 
@@ -94,7 +105,7 @@ const VerifyAccessToken=async (req,res,next)=>{
     if(!token)
         return next(createHttpError.Unauthorized())
       try{
-         await JWTHelper.VerifyJWT(token,'Access')
+         req.body.userId= await JWTHelper.VerifyJWT(token,'Access')
          return next()
       }
       catch(e)

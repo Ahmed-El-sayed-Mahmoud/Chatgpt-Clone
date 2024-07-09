@@ -9,7 +9,7 @@ const SignAccessToken = (UserId)=>{
         }
         const Secret=process.env.ACCESS_TOKEN_SECRET
         const Options={
-            expiresIn:'1h',
+            expiresIn:'20h',
             issuer:'AboElseed.com',
             audience:UserId
         }
@@ -38,10 +38,10 @@ const SignAccessToken = (UserId)=>{
     })
 } */
 
-const VerifyJWT=(token,type)=>{
+const VerifyJWT=async (token,type)=>{
     const Secret=type=='Access'? 'ACCESS_TOKEN_SECRET' : 'REFRESH_TOKEN_SECRET'
-    return new Promise((resolve,reject)=>{
-        JWT.verify(token,process.env[Secret],(err,PayLoad)=>{
+    return new Promise(async(resolve,reject)=>{
+        await JWT.verify(token,process.env[Secret],(err,PayLoad)=>{
             if(err)
                 {
                     console.log(err.message)
@@ -66,7 +66,7 @@ const SignRefreshsToken = (UserId)=>{
             issuer:'AboElseed.com',
             audience:UserId
         }
-        JWT.sign(PayLoad,Secret,Options,(error, token)=>{
+        JWT.sign(PayLoad,Secret,Options,async(error, token)=>{
             if(error)
                 return reject(createHttpError.InternalServerError())
 
@@ -82,7 +82,7 @@ const SignRefreshsToken = (UserId)=>{
             }); */
            // RedisClient.set(UserId,token,{EX: 365*24*60*60})
            try{
-            RedisClient.set(UserId, token, 'EX', 60 * 60 * 24);
+           await RedisClient.set(UserId, token, 'EX', 60 * 60 * 24);
             
             resolve(token)
            }

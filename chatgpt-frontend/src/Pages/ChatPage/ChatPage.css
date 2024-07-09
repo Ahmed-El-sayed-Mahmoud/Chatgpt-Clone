@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    background: rgb(31, 31, 31);
+    color: white;
+    font-family: "Open Sans", sans-serif;
+  }
+  .content {
+    min-height: 100vh;
+    display: flex;
+  }
+  .sidebar {
+    width: 20%;
+    position: fixed;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+  .chat {
+    width: 80%;
+    margin-left: 20%;
+  }
+  .active_chat {
+    background-color: #5c5c5c61;
+  }
+  .logout button{
+    font-size: 19px;
+    letter-spacing: 1.5px;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #000000;
+    color: white;
+  }
+  .logout{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  a:visited {
+    color: inherit; 
+  }

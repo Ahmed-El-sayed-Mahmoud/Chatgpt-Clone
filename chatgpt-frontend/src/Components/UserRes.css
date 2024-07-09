@@ -1,0 +1,34 @@
+.user_res_content .text{
+    padding: 10px;
+    font-size: 20px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 11px;
+    background-color: #80808026;
+    text-align: start;
+    max-width: 70%;
+    line-height: 33.5px;
+    position: relative;
+}
+.user_res_content{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 30px;
+    
+}
+.attachment{
+    position: absolute;
+    top: -31px;
+    /* left: 129px; */
+    background-color: #35353538;
+    border-radius: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 90%; 
+text-align: left;
+
+}
+.attachment svg{
+    margin-right: 9px;
+}

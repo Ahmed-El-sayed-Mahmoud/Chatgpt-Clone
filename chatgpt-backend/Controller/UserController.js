@@ -29,8 +29,11 @@ const AddUser = async (req, res, next) => {
   const LoggedIn=async(req,res,next)=>{
     res.send({message:"Succefful Login"})
   }
+  const IsLoggedIn=async(req,res,next)=>{
+    res.status(200).json({logged:true})
+  }
 
-module.exports = { AddUser ,Home ,LoggedIn}
+module.exports = { AddUser ,Home ,LoggedIn,IsLoggedIn}
 
 
 

@@ -1,0 +1,21 @@
+.chat_header_container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer; 
+  }
+  
+  .chat_header_container:hover {
+    background-color: #5c5c5c61;    
+  }
+  .chat_header_text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 90%; 
+text-align: left;
+    
+  }

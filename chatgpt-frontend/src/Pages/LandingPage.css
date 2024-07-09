@@ -1,0 +1,114 @@
+
+  .container {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    font-size: 22px;
+  }
+  
+  .logo {
+    height: 110px;
+    width: 110px;
+  }
+  
+  .nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav li {
+    cursor: pointer;
+    margin: 0 20px;
+    padding: 8px;
+    transition: .3s;
+    border-radius: 12px;
+    border: 1px solid grey;
+  }
+  .nav li:hover{
+    
+    background-color: #8080805e;
+  }
+  
+  .main-content {
+    margin: 50px 0;
+  }
+  
+  .main-content h1 {
+    font-size: 3em;
+    margin: 0 0 20px;
+  }
+  
+  
+  
+  .image-container {
+    margin: 50px 0;
+  }
+  
+  .image-container img {
+    width: 100%;
+    max-width: 600px;
+    border: 2px solid #ff66ff;
+    height: 110px;
+    width: 110px;
+  }
+  .header> div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 80px;
+    font-size: 37px;
+  }
+.ontent{
+    width: 100%;
+    height: 213px;
+    background-color: #000000c7;
+    color: white;
+    min-height: 800px;
+    display: flex;
+    align-items: center;
+    line-height: 58.5px;
+    padding: 0 22px;
+    justify-content: space-evenly;
+    flex-direction: row;
+    /* flex-flow: column-reverse; */
+
+  }
+  .ontent .text{
+    font-size: 40px;
+    text-align: left;
+    color: white;
+    width: 85%;
+
+        font-family: "Electrolize", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+  }
+  .ontent button{
+    border: none;
+    font-size: 33px;
+    padding: 15px;
+    background-color: #ba3636;
+    border-radius: 17px;
+    color: black;
+    transition: .4s;
+  }
+  .ontent button:hover{
+    color:white;
+    background-color: black;
+    cursor: pointer;
+  }
+  a{
+    text-decoration: none;
+    
+  }
