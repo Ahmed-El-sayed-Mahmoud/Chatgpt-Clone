@@ -9,7 +9,9 @@ const ExistMiddleWare = async (req, res, next) => {
   const { email, password } = req.body;
   try
   {
+   console.log("before database")
     const user = await UserSchema.findOne({ email });
+    console.log("after database")
     if (user == null) {
       return next();
     } else {
