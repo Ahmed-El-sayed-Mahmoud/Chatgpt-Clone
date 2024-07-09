@@ -2,7 +2,7 @@ const Joi = require("joi");
 const UserSchema = require("../Schemas/UserSchema");
 const createHttpError = require("http-errors");
 const bcrypt = require("bcrypt");
-const JWTHelper = require("../Helpers/JWTHelper");
+const JWTHelper = require("../Helpers/JWTHelper")
 const RedisClient=require("../Helpers/RedisInit")
 //////////////////////////////////////////////////////
 const ExistMiddleWare = async (req, res, next) => {
