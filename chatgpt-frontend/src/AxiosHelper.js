@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useLayoutEffect, useState } from "react";
 
 let api=axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://chatgpt-clone-a6nm.vercel.app/',
     withCredentials: true 
   });
 
@@ -42,7 +42,7 @@ let api=axios.create({
                 if(error.status==401&&error.message=="Unauthorized")
                 {
                     try{
-                        const res= await ProtectedAxios.post('http://localhost:3000/user/refresh-token')
+                        const res= await ProtectedAxios.post('https://chatgpt-clone-a6nm.vercel.app/user/refresh-token')
                     SetAccessToken(res.data.AccessToken)
                     originalRequest.headers.Authorization=`Bearer ${res.data.AccessToken}`
                     originalRequest._retry=true;

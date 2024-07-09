@@ -15,7 +15,7 @@ export default function SignUp() {
     useEffect(() => {
       const checkIfLoggedIn = async () => {
         try {
-          const response = await axios.post("http://localhost:3000/user/isloggedin",{},{withCredentials:true});
+          const response = await axios.post("https://chatgpt-clone-a6nm.vercel.app/user/isloggedin",{},{withCredentials:true});
           if (response.status === 200) {
             navigate("/");
           }
@@ -31,7 +31,7 @@ export default function SignUp() {
         console.log(email,password)
         try{
                 axios.defaults.withCredentials=true
-            const response=await axios.post('http://localhost:3000/user/add',
+            const response=await axios.post('https://chatgpt-clone-a6nm.vercel.app/user/add',
                 {
                     email:email,
                     password:password

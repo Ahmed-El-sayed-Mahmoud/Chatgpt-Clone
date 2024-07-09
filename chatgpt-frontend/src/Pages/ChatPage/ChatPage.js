@@ -126,7 +126,7 @@ function ChatPage() {
           originalRequest._retry = true;
           try {
             const res = await api.get(
-              "http://localhost:3000/user/refresh-token",
+              "https://chatgpt-clone-a6nm.vercel.app/user/refresh-token",
               { headers: { "skip-interceptor": true } }
             );
             console.log("Token refreshed", res);
@@ -145,7 +145,7 @@ function ChatPage() {
   }, [navigate]);
   const handleLogout = async () => {
     try {
-      await axios.delete("http://localhost:3000/user/logout", {
+      await axios.delete("https://chatgpt-clone-a6nm.vercel.app/user/logout", {
         withCredentials: true,
       });
       //deleteCookie('refreshtoken');
@@ -159,7 +159,7 @@ function ChatPage() {
   const GetChat = async (id) => {
     try {
       const response = await api.post(
-        "http://localhost:3000/chat/get-chat",
+        "https://chatgpt-clone-a6nm.vercel.app/chat/get-chat",
         {
           conversationId: id,
         },
@@ -179,7 +179,7 @@ function ChatPage() {
   const makePostRequest = async (url, name) => {
     try {
       const response = await api.post(
-        "http://localhost:3000/chat/add-chat",
+        "https://chatgpt-clone-a6nm.vercel.app/chat/add-chat",
         {
           name: name,
         },
@@ -202,7 +202,7 @@ function ChatPage() {
   const fetchConversations = async () => {
     try {
       const response = await api.get(
-        "http://localhost:3000/chat/get-all",
+        "https://chatgpt-clone-a6nm.vercel.app/chat/get-all",
         { withCredentials: true },
         {}
       );
@@ -222,7 +222,7 @@ function ChatPage() {
   const GetNewAccessToken = async () => {
     try {
       const response = await api.get(
-        "http://localhost:3000/user/refresh-token",
+        "https://chatgpt-clone-a6nm.vercel.app/user/refresh-token",
         { withCredentials: true }
       );
     } catch (error) {
@@ -268,7 +268,7 @@ function ChatPage() {
   const DeleteChat = async (id) => {
     try {
       const response = await api.delete(
-        `http://localhost:3000/chat/delete-chat?id=${id}`,
+        `https://chatgpt-clone-a6nm.vercel.app/chat/delete-chat?id=${id}`,
         {
           headers: {
             Authorization: localStorage.getItem("AccessToken"),
@@ -355,7 +355,7 @@ function ChatPage() {
     console.log("chatId", CurrentChatId);
     try {
       const response = await api.post(
-        "http://localhost:3000/chat/add-msgs",
+        "https://chatgpt-clone-a6nm.vercel.app/chat/add-msgs",
         JSON.stringify({
           conversationId: chatId,
           messages: updatedMessages,
@@ -396,7 +396,7 @@ function ChatPage() {
     if (e.key === "Enter") {
       if (state.generating) return;
       const res = await makePostRequest(
-        "http://localhost:3000/chat/add-chat",
+        "https://chatgpt-clone-a6nm.vercel.app/chat/add-chat",
         newchatName
       );
       dispatch({ type: "CLEAR_MESSAGES" });
