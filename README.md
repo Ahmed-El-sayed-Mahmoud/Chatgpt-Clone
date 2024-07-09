@@ -39,6 +39,8 @@ View the live deployment of Chemini: [Chemini ChatGPT Clone](https://chatgpt-clo
 - JSON Web Token (JWT)
 - Google Generative AI (Gemini API)
 
+https://github.com/Ahmed-El-sayed-Mahmoud/Chatgpt-Clone/assets/130814088/f9c508c7-b73e-46c0-a859-bd7feec2aa54
+
 ## Getting Started
 
 ### Prerequisites
