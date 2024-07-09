@@ -1,9 +1,12 @@
-const redis = require('redis')
+import { createClient } from 'redis';
 
-const client = redis.createClient({
-  port: 6379,
-  host: '127.0.0.1',
-})
+const client = createClient({
+    password: process.env.REDIS_CLIENT_KEY,
+    socket: {
+        host: 'redis-11479.c300.eu-central-1-1.ec2.redns.redis-cloud.com',
+        port: 11479
+    }
+});
 client.connect()
 client.on('connect', () => {
   console.log('Client connected to redis')
