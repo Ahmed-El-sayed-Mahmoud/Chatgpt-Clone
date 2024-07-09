@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI('AIzaSyDV6OxSzj-XnAD-DTXV4yd-TTO6QgHYKso');
+console.log("enviromnett",process.env.REACT_APP_GEMINI_API_KEY)
+const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
     const getBase64 = (file) => new Promise(function (resolve, reject) {
         let reader = new FileReader();

@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI("AIzaSyDV6OxSzj-XnAD-DTXV4yd-TTO6QgHYKso"); // Replace with your actual API key
+const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY); // Replace with your actual API key
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 let chat = model.startChat({
     history: [],
