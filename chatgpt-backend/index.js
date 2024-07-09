@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors({
     credentials:true,
-    origin: ["https://chatgpt-clone-frontend-kappa.vercel.app/"]
+    origin: ["https://chatgpt-clone-frontend-kappa.vercel.app"]
 }))
 app.use(CookieParser())
 app.use(morgan('dev'));
