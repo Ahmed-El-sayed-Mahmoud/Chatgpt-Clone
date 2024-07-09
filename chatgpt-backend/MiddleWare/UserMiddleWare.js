@@ -89,7 +89,7 @@ const GenerateNewTokens=async(req,res,next)=>{
     const NewRefreshToken = await JWTHelper.SignRefreshsToken(userId);
     console.log("new refresh",NewAccessToken)
     res.cookie('accesstoken','Bearer '+NewAccessToken,{maxAge:5*60*1000})
-    res.cookie('refreshtoken',NewRefreshToken,{maxAge:10*60*1000, httpOnly:true,secure:true , sameSite: 'strict'})
+    res.cookie('refreshtoken',NewRefreshToken,{maxAge:10*60*1000, httpOnly:true,secure:true , sameSite: 'none'})
     res.status(200).send({AccessToken:NewAccessToken  });
   }
   catch(e)
